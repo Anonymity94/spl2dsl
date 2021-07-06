@@ -1,7 +1,7 @@
 {
   "name": "splunk-spl-to-elasticsearch-dsl",
   "description": "Convert Splunk SPL to Elasticsearch DSL with pegjs",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "main": "index.js",
   "scripts": {
     "build": "node_modules/pegjs/bin/pegjs --format umd --export-var splToDslConverter -o lib/converter.js lib/splunk.pegjs && gulp && npm run test",
@@ -31,6 +31,7 @@
     "pegjs": "^0.10.0"
   },
   "dependencies": {
-    "gulp-cli": "^2.3.0"
+    "gulp-cli": "^2.3.0",
+    "serve": "^12.0.0"
   }
 }
