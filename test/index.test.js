@@ -297,8 +297,7 @@ describe("Splunk SPL to ElasticSearch DSL test", () => {
     });
   });
 
-  const spl6 =
-    " | gentimes start_time start=1594569600000 end=1594624363506";
+  const spl6 = " | gentimes start_time start=1594569600000 end=1594624363506";
   test(spl6, () => {
     const dsl6 = converter.parse(spl6, { json: true });
     expect(dsl6).toStrictEqual({
@@ -919,6 +918,69 @@ describe("Splunk SPL to ElasticSearch DSL test", () => {
         dev: {
           time_range: {},
           fields: ["a"],
+        },
+      },
+    });
+  });
+
+  const spl19 = " | search @timestamp='2022-01-01'";
+  test(spl19, () => {
+    const dsl19 = converter.parse(spl19, { json: true });
+    expect(dsl19).toStrictEqual({
+      result: {
+        target: {
+          query: {
+            bool: {
+              filter: [
+                {
+                  term: {
+                    "@timestamp": {
+                      value: "2022-01-01",
+                      boost: 1,
+                    },
+                  },
+                },
+              ],
+              adjust_pure_negative: true,
+              boost: 1,
+            },
+          },
+          track_total_hits: true,
+        },
+        dev: {
+          time_range: {},
+          fields: ["@timestamp"],
+        },
+      },
+    });
+  });
+  const spl20 = " | search _timestamp='2022-01-01'";
+  test(spl20, () => {
+    const dsl20 = converter.parse(spl20, { json: true });
+    expect(dsl20).toStrictEqual({
+      result: {
+        target: {
+          query: {
+            bool: {
+              filter: [
+                {
+                  term: {
+                    "_timestamp": {
+                      value: "2022-01-01",
+                      boost: 1,
+                    },
+                  },
+                },
+              ],
+              adjust_pure_negative: true,
+              boost: 1,
+            },
+          },
+          track_total_hits: true,
+        },
+        dev: {
+          time_range: {},
+          fields: ["_timestamp"],
         },
       },
     });

@@ -94,7 +94,7 @@ ip_initiator = '10.0.0.1' AND ip_protocol in ('TCP', 'UDP') AND port_initiator >
 
 |         参数          |    名称    | 描述                                                         |
 | :-------------------: | :--------: | ------------------------------------------------------------ |
-|    `<field-name>`     |   字段名   | 允许输入大小字母、数字、下划线[`_`]、英文的点[`.`]<br />例如：`start_time`、`cup.usage` |
+|    `<field-name>`     |   字段名   | 允许输入大小字母、数字、下划线[`_`]、英文的点[`.`]。例如：`start_time`、`cup.usage`。<br />支持前缀符号 `@` 或 `_`。例如 `@timestamp` `_timestamp` |
 |      `<operate>`      |   操作符   | `=`、`!=`、`>`、`>=`、`<`、`<=`                              |
 |    `<field-value>`    |   字段值   | 允许输入大小字母、数字、下划线[`_`]、英文的点[`.`]、冒号[`:`]、正斜杠[`/`]、通配符[`*`]、通配符[`?`]。<br />允许内容被单引号[`''`]或双引号[`""`]包裹。含有通配符时，将会使用ES中的[Wildcard query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-wildcard-query.html)<br />例如：`12`、`"1.2"`、`"中国"`、`"a_b"` |
 | `<logical-connector>` | 逻辑关系符 | `and`、`AND`、`or`、`OR`、`&&`、`||`                         |
