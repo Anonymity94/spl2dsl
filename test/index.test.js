@@ -965,7 +965,7 @@ describe("Splunk SPL to ElasticSearch DSL test", () => {
               filter: [
                 {
                   term: {
-                    "_timestamp": {
+                    _timestamp: {
                       value: "2022-01-01",
                       boost: 1,
                     },
@@ -981,6 +981,38 @@ describe("Splunk SPL to ElasticSearch DSL test", () => {
         dev: {
           time_range: {},
           fields: ["_timestamp"],
+        },
+      },
+    });
+  });
+
+  const spl21 = " | search service_id='a=1'";
+  test(spl21, () => {
+    const dsl21 = converter.parse(spl21, { json: true });
+    expect(dsl21).toStrictEqual({
+      result: {
+        target: {
+          query: {
+            bool: {
+              filter: [
+                {
+                  term: {
+                    service_id: {
+                      value: "a=1",
+                      boost: 1,
+                    },
+                  },
+                },
+              ],
+              adjust_pure_negative: true,
+              boost: 1,
+            },
+          },
+          track_total_hits: true,
+        },
+        dev: {
+          time_range: {},
+          fields: ["service_id"],
         },
       },
     });
